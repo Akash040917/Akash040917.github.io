@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akash Raghuram R L - Fresher in Mechatronics Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  function navTo(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+<style>
+  :root {
+    --bg:       #1e1e1e;
+    --surface:  #272727;
+    --surface2: #2f2f2f;
+    --border:   #3a3a3a;
+    --gold:     #c9a84c;
+    --gold-lt:  #e8c97a;
+    --gold-dim: #7a5e25;
+    --text:     #e8e2d9;
+    --muted:    #888480;
+    --white:    #f5f0e8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* Subtle grid texture */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(30,30,30,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+    background: none; border: none; cursor: pointer;
+    transition: color .2s;
+  }
+  .nav-logo:hover { color: var(--gold-lt); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links button {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-size: .8rem; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  .nav-links button:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-line {
+    position: absolute; top: 0; bottom: 0;
+    left: 4rem; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp .6s .1s ease forwards;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 700; line-height: .9;
+    letter-spacing: -2px;
+    opacity: 0; animation: fadeUp .6s .2s ease forwards;
+  }
+
+  .hero-name .italic {
+    font-style: italic; color: var(--gold);
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 1.05rem; line-height: 1.8; color: var(--muted);
+    margin: 2.5rem 0 3rem;
+    opacity: 0; animation: fadeUp .6s .3s ease forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1.25rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .6s .4s ease forwards;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: .8rem 2rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: .8rem; font-weight: 500; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer;
+    transition: all .25s;
+    border: none;
+  }
+
+  .btn-gold {
+    background: var(--gold); color: #1e1e1e;
+  }
+  .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 5rem;
+    padding-top: 3rem; border-top: 1px solid var(--border);
+    opacity: 0; animation: fadeUp .6s .5s ease forwards;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: .75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-top: .25rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    margin: 0 4rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 4rem; position: relative; z-index: 1; }
+
+  .section-header { margin-bottom: 4rem; }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; color: var(--gold); letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: .75rem;
+    display: flex; align-items: center; gap: .75rem;
+  }
+  .section-num::after {
+    content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--gold-dim);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600; line-height: 1.05;
+    letter-spacing: -1px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start;
+  }
+
+  .about-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: -1px; left: 2rem; right: 2rem; height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .about-card-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1.5rem;
+    border: 1px solid var(--gold-dim);
+  }
+
+  .about-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; margin-bottom: .25rem;
+  }
+  .about-card-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem; color: var(--gold); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 1.75rem;
+  }
+
+  .about-meta { display: flex; flex-direction: column; gap: .75rem; }
+  .meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: .6rem 0; border-bottom: 1px solid var(--border);
+    font-size: .85rem;
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-key { color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: .75rem; }
+  .meta-val { color: var(--text); font-weight: 400; }
+  .meta-val.available { color: #4ade80; }
+
+  .about-text p {
+    font-size: 1rem; line-height: 1.85; color: #a09890;
+    margin-bottom: 1.25rem;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+
+  .projects-list { display: flex; flex-direction: column; gap: 1px; }
+
+  .project-row {
+    display: grid; grid-template-columns: 80px 1fr auto;
+    align-items: center; gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: all .25s;
+    position: relative;
+  }
+  .project-row::before {
+    content: ''; position: absolute; left: -4rem; right: -4rem; top: 0; bottom: 0;
+    background: var(--surface); opacity: 0; transition: opacity .25s; z-index: -1;
+  }
+  .project-row:hover::before { opacity: 1; }
+  .project-row:hover .proj-num { color: var(--gold); }
+  .project-row:hover .proj-arrow { opacity: 1; transform: translateX(0); }
+
+  .proj-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 700; color: var(--border);
+    line-height: 1; transition: color .25s;
+    user-select: none;
+  }
+
+  .proj-info { flex: 1; }
+  .proj-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 600; margin-bottom: .4rem;
+    transition: color .25s;
+  }
+  .project-row:hover .proj-name { color: var(--gold-lt); }
+
+  .proj-desc { font-size: .9rem; color: var(--muted); line-height: 1.5; margin-bottom: .75rem; }
+
+  .proj-tags { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .proj-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold-dim); border: 1px solid var(--gold-dim);
+    padding: 3px 10px;
+  }
+
+  .proj-arrow {
+    font-size: 1.5rem; color: var(--gold);
+    opacity: 0; transform: translateX(-8px);
+    transition: opacity .25s, transform .25s;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--surface); }
+
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 1rem;
+  }
+
+  .skill-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color .25s, transform .25s;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, var(--gold-dim), var(--gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .skill-card:hover { border-color: var(--gold-dim); transform: translateY(-4px); }
+  .skill-card:hover::after { transform: scaleX(1); }
+
+  .skill-card-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+  .skill-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .skill-list {
+    display: flex; flex-direction: column; gap: .5rem;
+  }
+  .skill-item {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: .82rem; color: var(--muted);
+  }
+  .skill-bar {
+    width: 80px; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; background: linear-gradient(to right, var(--gold-dim), var(--gold));
+    border-radius: 2px;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .6s ease;
+  }
+  .skill-card:hover .skill-bar-fill { transform: scaleX(1); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+  }
+
+  .contact-intro {
+    font-size: 1rem; line-height: 1.85; color: var(--muted); margin-bottom: 2.5rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: .75rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text); text-decoration: none;
+    font-size: .875rem;
+    transition: border-color .2s, color .2s, transform .2s;
+    cursor: pointer; background: none; font-family: 'Outfit', sans-serif;
+    width: 100%;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); transform: translateX(4px); }
+  .contact-link-icon {
+    font-size: 1rem; width: 20px; text-align: center;
+  }
+  .contact-link-label { font-weight: 500; }
+  .contact-link-val { color: var(--muted); margin-left: auto; font-size: .8rem; font-family: 'JetBrains Mono', monospace; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .form-field { display: flex; flex-direction: column; gap: .5rem; }
+  .form-field label {
+    font-size: .7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+  }
+  .form-field input, .form-field textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 300;
+    padding: .875rem 1.125rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); }
+  .form-field textarea { resize: vertical; min-height: 130px; }
+  .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: .75rem; letter-spacing: 1px; color: var(--muted);
+    text-transform: uppercase;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--gold); letter-spacing: 3px;
+  }
+
+  /* ── PRINT / RESUME PDF ── */
+
+  #resume-print { display: none; }
+
+  .resume-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 2px solid #c9a84c; }
+  .resume-name { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: #1a1a1a; line-height: 1; }
+  .resume-role { font-size: .85rem; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; margin-top: 6px; }
+  .resume-contact-info { text-align: right; font-size: .8rem; color: #555; line-height: 1.8; }
+  .resume-section { margin-bottom: 22px; }
+  .resume-section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: #c9a84c; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid #e8c97a; }
+  .resume-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+  .resume-row-left { flex: 1; }
+  .resume-job-title { font-weight: 600; font-size: .95rem; color: #1a1a1a; }
+  .resume-company { font-size: .82rem; color: #666; margin-top: 2px; }
+  .resume-desc { font-size: .8rem; color: #555; line-height: 1.6; margin-top: 4px; }
+  .resume-date { font-size: .78rem; color: #999; white-space: nowrap; margin-left: 16px; font-family: 'JetBrains Mono', monospace; }
+  .resume-skills-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .resume-skill-chip { background: #f5f0e8; border: 1px solid #c9a84c; padding: 3px 10px; font-size: .75rem; color: #7a5e25; border-radius: 3px; }
+  .resume-summary { font-size: .88rem; color: #444; line-height: 1.7; }
+
+  /* ── STAR RATING ── */
+  .star-rating { display: flex; gap: .35rem; margin-top: .25rem; }
+  .star {
+    font-size: 1.8rem; color: var(--border); cursor: pointer;
+    transition: color .15s, transform .15s;
+    user-select: none;
+  }
+  .star:hover, .star.active { color: var(--gold); transform: scale(1.15); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .project-row { grid-template-columns: 50px 1fr; }
+    .proj-arrow { display: none; }
+    .divider { margin: 0 1.5rem; }
+    footer { flex-direction: column; gap: .75rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-logo" onclick="navTo('hero')">Akash Raghuram R L</button>
+  <ul class="nav-links">
+    <li><button onclick="navTo('about')">About</button></li>
+    <li><button onclick="navTo('projects')">Projects</button></li>
+    <li><button onclick="navTo('skills')">Skills</button></li>
+    <li><button onclick="navTo('contact')">Contact</button></li>
+    <li><button onclick="navTo('feedback')">Feedback</button></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-line"></div>
+  <div class="hero-eyebrow">Mechatronics Engineer · Fresher</div>
+  <h1 class="hero-name">
+    Akash<br><span class="italic">Raghuram R L</span>
+  </h1>
+  <p class="hero-desc">
+    Aspiring Mechatronics Engineer with a passion for robotics, AI, and automation. I build intelligent systems — from deep learning models to tele-operated robots — with precision and purpose.
+  </p>
+  <div class="hero-actions">
+    <button class="btn btn-gold" onclick="navTo('projects')">View Work</button>
+    <button class="btn btn-outline" onclick="navTo('contact')">Get In Touch</button>
+    <button class="btn btn-outline" onclick="downloadResume()">⬇ Download Resume</button>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">2</div>
+      <div class="stat-label">Projects Built</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Certifications</div>
+    </div>
+    <div>
+      <div class="stat-num">7.05</div>
+      <div class="stat-label">CGPA</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-num">01 — About</div>
+    <h2 class="section-title">Who I <em>am</em></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card reveal">
+      <div class="about-card-avatar">🤖</div>
+      <div class="about-card-name">Akash Raghuram R L</div>
+      <div class="about-card-role">Mechatronics Engineer · Fresher</div>
+      <div class="about-meta">
+        <div class="meta-row">
+          <span class="meta-key">Location</span>
+          <span class="meta-val">Chennai, India</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Education</span>
+          <span class="meta-val">B.E. Mechatronics, 2026</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Availability</span>
+          <span class="meta-val available">● Open to work</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-key">Focus</span>
+          <span class="meta-val">Robotics · AI · Automation</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p>
+        I'm a final-year Mechatronics Engineering student at Rajalakshmi Engineering College, Chennai, with a strong interest in robotics, automation, and artificial intelligence. I enjoy working at the intersection of hardware and software to build intelligent systems.
+      </p>
+      <p>
+        My hands-on experience ranges from developing deep learning models for real-world agricultural applications to designing tele-operated robotic systems with embedded control and web-based interfaces.
+      </p>
+      <p>
+        I hold certifications from BOSCH and TVS in ADAS, Data Analytics, and EV Technology. I'm self-motivated, eager to learn, and ready to contribute from day one in a manufacturing or automation environment.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-num">02 — Projects</div>
+    <h2 class="section-title">Selected <em>work</em></h2>
+  </div>
+  <div class="projects-list">
+
+    <div class="project-row reveal">
+      <div class="proj-num">01</div>
+      <div class="proj-info">
+        <div class="proj-name">AI-Assisted Tele-Operated Robot for Medicine Delivery</div>
+        <div class="proj-desc">Developing an embedded control system for actuator interfacing and coordinated robotic arm movement. Includes hardware integration, power management, mechanical assembly, and a web-based interface for remote monitoring and control. (Ongoing)</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Embedded Systems</span>
+          <span class="proj-tag">Robotics</span>
+          <span class="proj-tag">Web Interface</span>
+          <span class="proj-tag">Python</span>
+        </div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </div>
+
+    <div class="project-row reveal">
+      <div class="proj-num">02</div>
+      <div class="proj-info">
+        <div class="proj-name">Real-Time Deep Learning Model for Betel Leaf Disease Detection</div>
+        <div class="proj-desc">Built an EfficientNet-B2 based deep learning model using transfer learning achieving 84.94% accuracy. Performed dataset preprocessing and deployed a real-time prediction system using Streamlit.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">EfficientNet-B2</span>
+          <span class="proj-tag">Transfer Learning</span>
+          <span class="proj-tag">Streamlit</span>
+        </div>
+      </div>
+      <div class="proj-arrow">→</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-num">03 — Skills</div>
+    <h2 class="section-title">My <em>expertise</em></h2>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">💻</div>
+      <div class="skill-card-name">Programming</div>
+      <div class="skill-list">
+        <div class="skill-item"><span>Python</span><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        <div class="skill-item"><span>SQL</span><div class="skill-bar"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+        <div class="skill-item"><span>Git & GitHub</span><div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span>Linux</span><div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🤖</div>
+      <div class="skill-card-name">AI & ML</div>
+      <div class="skill-list">
+        <div class="skill-item"><span>Deep Learning</span><div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span>Transfer Learning</span><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        <div class="skill-item"><span>Streamlit</span><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+        <div class="skill-item"><span>Microsoft Excel</span><div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">⚙️</div>
+      <div class="skill-card-name">Engineering & Design</div>
+      <div class="skill-list">
+        <div class="skill-item"><span>AutoCAD</span><div class="skill-bar"><div class="skill-bar-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><span>Fusion 360</span><div class="skill-bar"><div class="skill-bar-fill" style="width:68%"></div></div></div>
+        <div class="skill-item"><span>SolidWorks</span><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        <div class="skill-item"><span>Sensors & Actuators</span><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-card-icon">🏭</div>
+      <div class="skill-card-name">Domain Knowledge</div>
+      <div class="skill-list">
+        <div class="skill-item"><span>Control Systems</span><div class="skill-bar"><div class="skill-bar-fill" style="width:62%"></div></div></div>
+        <div class="skill-item"><span>ADAS (BOSCH)</span><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        <div class="skill-item"><span>EV Technology</span><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+        <div class="skill-item"><span>Data Analytics</span><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-num">04 — Contact</div>
+    <h2 class="section-title">Let's <em>connect</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro reveal">
+        I'm always open to entry-level opportunities in manufacturing, automation, or robotics. Whether it's an internship or a full-time role, feel free to reach out — I'd love to connect!
+      </p>
+      <div class="contact-links reveal">
+        <button class="contact-link">
+          <span class="contact-link-icon">💼</span>
+          <span class="contact-link-label">LinkedIn</span>
+          <span class="contact-link-val">linkedin.com/akash-raghuram</span>
+        </button>
+        <button class="contact-link">
+          <span class="contact-link-icon">📧</span>
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-val">akashvijai1794@gmail.com</span>
+        </button>
+        <button class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-val">+91 8838600110</span>
+        </button>
+        <button class="contact-link">
+          <span class="contact-link-icon">📍</span>
+          <span class="contact-link-label">Location</span>
+          <span class="contact-link-val">Chennai, India</span>
+        </button>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-field">
+        <label>Name</label>
+        <input type="text" placeholder="Your name" required>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project or opportunity..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FEEDBACK -->
+<section id="feedback">
+  <div class="section-header reveal">
+    <div class="section-num">05 — Feedback</div>
+    <h2 class="section-title">Share your <em>thoughts</em></h2>
+  </div>
+  <div style="max-width: 640px;">
+    <p class="contact-intro reveal" style="margin-bottom:2.5rem;">
+      Your feedback helps me grow. Whether it's about my work, a collaboration experience, or just a general impression — I'd love to hear it.
+    </p>
+    <form class="contact-form reveal" onsubmit="handleFeedback(event)">
+      <div class="form-field">
+        <label>Name</label>
+        <input type="text" placeholder="Your name" required>
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-field">
+        <label>Rating</label>
+        <div class="star-rating" id="starRating">
+          <span class="star" data-val="1">★</span>
+          <span class="star" data-val="2">★</span>
+          <span class="star" data-val="3">★</span>
+          <span class="star" data-val="4">★</span>
+          <span class="star" data-val="5">★</span>
+        </div>
+        <input type="hidden" id="ratingVal" value="0">
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea placeholder="What did you think? Any suggestions or kind words..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Submit Feedback</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Star rating
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', () => {
+      const val = +star.dataset.val;
+      document.getElementById('ratingVal').value = val;
+      document.querySelectorAll('.star').forEach(s => {
+        s.classList.toggle('active', +s.dataset.val <= val);
+      });
+    });
+    star.addEventListener('mouseover', () => {
+      const val = +star.dataset.val;
+      document.querySelectorAll('.star').forEach(s => {
+        s.style.color = +s.dataset.val <= val ? 'var(--gold)' : '';
+      });
+    });
+    star.addEventListener('mouseout', () => {
+      const saved = +document.getElementById('ratingVal').value;
+      document.querySelectorAll('.star').forEach(s => {
+        s.style.color = +s.dataset.val <= saved ? 'var(--gold)' : '';
+      });
+    });
+  });
+
+  // Feedback form
+ async function handleFeedback(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+
+  const data = {
+    name: form[0].value,
+    email: form[1].value,
+    rating: document.getElementById("ratingVal").value,
+    message: form[3].value
+  };
+
+  try {
+    const res = await fetch("http://localhost:5000/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) throw new Error();   // ✅ added check
+
+    btn.textContent = '✓ Thank you!';
+    btn.style.background = '#4ade80';
+    btn.style.color = '#1e1e1e';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = 'Submit Feedback';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+      form.reset();
+
+      document.querySelectorAll('.star').forEach(s => {
+        s.classList.remove('active');
+        s.style.color = '';
+      });
+
+      document.getElementById('ratingVal').value = 0;
+    }, 3000);
+
+  } catch (err) {
+    console.error(err);   // ✅ added for debugging
+    alert("Error sending feedback ❌");
+  }
+}
+
+  // Contact form
+ async function handleSubmit(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+  const orig = btn.textContent;
+
+  const data = {
+    name: form[0].value,
+    email: form[1].value,
+    message: form[2].value
+  };
+
+  try {
+    const res = await fetch("http://localhost:5000/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!res.ok) throw new Error();   // ✅ added check
+
+    btn.textContent = '✓ Message Sent';
+    btn.style.background = '#4ade80';
+    btn.style.color = '#0a0a0a';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+      form.reset();
+    }, 3000);
+
+  } catch (err) {
+    console.error(err);   // ✅ added for debugging
+    alert("Error sending message ❌");
+  }
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">Akash Raghuram R L</span>
+  <span>© 2026 — All rights reserved</span>
+</footer>
+
+<script>
+function downloadResume() {
+  window.location.href = "resume.pdf";
+}
+</script>
+
+</body>
+</html>
