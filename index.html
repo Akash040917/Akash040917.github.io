@@ -612,7 +612,7 @@
     <form class="contact-form reveal" onsubmit="handleSubmit(event)">
       <div class="form-field"><label>Name</label><input name="name" type="text" placeholder="Your name" required></div>
       <div class="form-field"><label>Email</label><input name="email" type="email" placeholder="your@email.com" required></div>
-      <div class="form-field"><label>Message</label><textarea name="message" placeholder="Tell me about your project or opportunity..." required></textarea></textarea></div>
+      <div class="form-field"><label>Message</label><textarea name="message" placeholder="Tell me about your project or opportunity..." required></textarea></div>
       <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Send Message</button>
     </form>
   </div>
@@ -699,7 +699,7 @@
       setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; form.reset(); }, 3000);
     } catch (err) {
   console.error(err);
-  alert('Error sending feedback ❌ Please try again.');
+  alert('Error sending message ❌ Please try again.');
 }
   }
 
@@ -729,15 +729,24 @@
       }, 3000);
     } catch (err) {
   console.error(err);
-  alert('Error sending message ❌ Please try again.');
+  alert('Error sending feedback ❌ Please try again.');
 }
   }
 
   // Resume download
-  function downloadResume() {
-  window.location.href = "resume.pdf";
+function downloadResume() {
+  window.open("resume.pdf", "_blank");
 }
-  
+
+  document.addEventListener("click", (e) => {
+  const menu = document.getElementById("navLinks");
+  const toggle = document.querySelector(".menu-toggle");
+
+  if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+    menu.classList.remove("active");
+  }
+    
+}); 
 </script>
 </body>
 </html>
