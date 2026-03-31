@@ -595,7 +595,7 @@
         <a href="https://www.linkedin.com/in/akash-raghuram-170aa0257/" target="_blank" class="contact-link">
           <span class="contact-link-icon">💼</span>
           <span class="contact-link-label">LinkedIn</span>
-          <span class="contact-link-val">Akash Raghuram/</span>
+          <span class="contact-link-val">Akash Raghuram</span>
         </a>
         <a href="mailto:akashvijai1794@gmail.com?subject=Opportunity%20Discussion&body=Hi%20Akash," class="contact-link">
           <span class="contact-link-icon">📧</span>
@@ -610,9 +610,9 @@
       </div>
     </div>
     <form class="contact-form reveal" onsubmit="handleSubmit(event)">
-      <div class="form-field"><label>Name</label><input type="text" placeholder="Your name" required></div>
-      <div class="form-field"><label>Email</label><input type="email" placeholder="your@email.com" required></div>
-      <div class="form-field"><label>Message</label><textarea placeholder="Tell me about your project or opportunity..." required></textarea></div>
+      <div class="form-field"><label>Name</label><input name="name" type="text" placeholder="Your name" required></div>
+      <div class="form-field"><label>Email</label><input name="email" type="email" placeholder="your@email.com" required></div>
+      <div class="form-field"><label>Message</label><textarea name="message" placeholder="Tell me about your project or opportunity..." required></textarea></textarea></div>
       <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Send Message</button>
     </form>
   </div>
@@ -629,8 +629,8 @@
   <div style="max-width:640px;">
     <p class="contact-intro reveal" style="margin-bottom:2.5rem;">Your feedback helps me grow. Whether it's about my work, a collaboration experience, or just a general impression — I'd love to hear it.</p>
     <form class="contact-form reveal" onsubmit="handleFeedback(event)">
-      <div class="form-field"><label>Name</label><input type="text" placeholder="Your name" required></div>
-      <div class="form-field"><label>Email</label><input type="email" placeholder="your@email.com" required></div>
+      <div class="form-field"><label>Name</label><input name="name" type="text" placeholder="Your name" required></div>
+      <div class="form-field"><label>Email</label><input name="email" type="email" placeholder="your@email.com" required></div>
       <div class="form-field">
         <label>Rating</label>
         <div class="star-rating" id="starRating">
@@ -640,7 +640,7 @@
         </div>
         <input type="hidden" id="ratingVal" value="0">
       </div>
-      <div class="form-field"><label>Message</label><textarea placeholder="What did you think? Any suggestions or kind words..." required></textarea></div>
+      <div class="form-field"><label>Message</label><textarea name="message" placeholder="What did you think? Any suggestions or kind words..." required></textarea></div>
       <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Submit Feedback</button>
     </form>
   </div>
@@ -687,20 +687,36 @@
   async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target, btn = form.querySelector('button[type=submit]'), orig = btn.textContent;
-    const data = { name: form[0].value, email: form[1].value, message: form[2].value };
+    const data = { 
+  name: form.name.value, 
+  email: form.email.value, 
+  message: form.message.value 
+};
     try {
       const res = await fetch(`${BASE_URL}/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
       btn.textContent = '✓ Message Sent'; btn.style.background = '#4ade80'; btn.style.color = '#1c1c1e'; btn.disabled = true;
       setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; btn.disabled = false; form.reset(); }, 3000);
-    } catch { alert('Error sending message ❌ Please try again.'); }
+    } catch (err) {
+  console.error(err);
+  alert('Error sending feedback ❌ Please try again.');
+}
   }
 
   // Feedback form
   async function handleFeedback(e) {
     e.preventDefault();
     const form = e.target, btn = form.querySelector('button[type=submit]');
-    const data = { name: form[0].value, email: form[1].value, rating: document.getElementById('ratingVal').value, message: form[3].value };
+    const data = {
+  name: form.name.value,
+  email: form.email.value,
+  rating: document.getElementById('ratingVal').value,
+  message: form.message.value
+};
+    if (data.rating == 0) {
+  alert("Please select rating ⭐");
+  return;
+}
     try {
       const res = await fetch(`${BASE_URL}/feedback`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
@@ -711,7 +727,10 @@
         document.querySelectorAll('.star').forEach(s => { s.classList.remove('active'); s.style.color = ''; });
         document.getElementById('ratingVal').value = 0;
       }, 3000);
-    } catch { alert('Error sending feedback ❌ Please try again.'); }
+    } catch (err) {
+  console.error(err);
+  alert('Error sending message ❌ Please try again.');
+}
   }
 
   // Resume download
