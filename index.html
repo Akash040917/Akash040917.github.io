@@ -77,6 +77,71 @@
   }
   .nav-links button:hover { color: var(--gold); }
 
+/* 🔥 NAVBAR BASE */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #0a0a0a;
+  position: relative;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 🔥 HAMBURGER */
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: white;
+}
+
+/* 🔥 MOBILE VIEW */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #111;
+    width: 200px;
+    flex-direction: column;
+    padding: 15px;
+    display: none;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+  
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
@@ -402,6 +467,50 @@
   .form-field textarea { resize: vertical; min-height: 130px; }
   .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
 
+  /* 🔥 MOBILE CONTACT FIX */
+@media (max-width: 768px) {
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contact-link {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .contact-link-val {
+    margin-left: 0;
+    word-break: break-all;
+  }
+
+  .contact-form {
+    width: 100%;
+  }
+
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+  }
+}
+
+  /* 🔥 ANCHOR FIX */
+.contact-link {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.contact-link:visited {
+  color: var(--text);
+}
+
+  /* 🔥 TOUCH FRIENDLY */
+.contact-link {
+  min-height: 48px;
+}
+  
   /* ── FOOTER ── */
   footer {
     padding: 2rem 4rem;
@@ -459,14 +568,77 @@
     .divider { margin: 0 1.5rem; }
     footer { flex-direction: column; gap: .75rem; text-align: center; }
   }
+
+  /* 🔥 APPLE UI UPGRADE (ADD ONLY) */
+
+/* NAV GLASS ENHANCEMENT */
+nav {
+  background: rgba(30,30,30,0.6) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* MOBILE NAV GLASS */
+@media (max-width: 768px) {
+  .nav-links {
+    background: rgba(20,20,20,0.8) !important;
+    backdrop-filter: blur(16px) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+  }
+}
+
+/* CONTACT GLASS EFFECT */
+.contact-link {
+  background: rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 12px !important;
+
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* CONTACT HOVER PREMIUM */
+.contact-link:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.45) !important;
+}
+
+/* BUTTON SMOOTH PHYSICS */
+.btn {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* HERO TEXT SUBTLE GLOW */
+.hero-name {
+  text-shadow: 0 0 30px rgba(201,168,76,0.08);
+}
+
+/* SKILL CARD MICRO INTERACTION */
+.skill-card:hover {
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* SMOOTHER REVEAL */
+.reveal {
+  transition: opacity .8s ease, transform .8s ease !important;
+}
+  
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav class="navbar">
   <button class="nav-logo" onclick="navTo('hero')">Akash Raghuram R L</button>
-  <ul class="nav-links">
+
+  <!-- ☰ Hamburger -->
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  <ul class="nav-links" id="navLinks">
     <li><button onclick="navTo('about')">About</button></li>
     <li><button onclick="navTo('projects')">Projects</button></li>
     <li><button onclick="navTo('skills')">Skills</button></li>
@@ -660,48 +832,63 @@
     <div class="section-num">04 — Contact</div>
     <h2 class="section-title">Let's <em>connect</em></h2>
   </div>
+
   <div class="contact-grid">
+    
+    <!-- LEFT SIDE -->
     <div>
       <p class="contact-intro reveal">
         I'm always open to entry-level opportunities in manufacturing, automation, or robotics. Whether it's an internship or a full-time role, feel free to reach out — I'd love to connect!
       </p>
+
       <div class="contact-links reveal">
-        <button class="contact-link">
+
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com/in/akash-raghuram" target="_blank" class="contact-link">
           <span class="contact-link-icon">💼</span>
           <span class="contact-link-label">LinkedIn</span>
           <span class="contact-link-val">linkedin.com/akash-raghuram</span>
-        </button>
-        <button class="contact-link">
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:akashvijai1794@gmail.com?subject=Opportunity%20Discussion&body=Hi%20Akash,%0A%0AI%20would%20like%20to%20connect%20with%20you." class="contact-link">
           <span class="contact-link-icon">📧</span>
           <span class="contact-link-label">Email</span>
           <span class="contact-link-val">akashvijai1794@gmail.com</span>
-        </button>
-        <button class="contact-link">
-          <span class="contact-link-icon">📞</span>
-          <span class="contact-link-label">Phone</span>
-          <span class="contact-link-val">+91 8838600110</span>
-        </button>
-        <button class="contact-link">
+        </a>
+
+        <!-- Location -->
+        <div class="contact-link">
           <span class="contact-link-icon">📍</span>
           <span class="contact-link-label">Location</span>
           <span class="contact-link-val">Chennai, India</span>
-        </button>
+        </div>
+
       </div>
     </div>
+
+    <!-- RIGHT SIDE (FORM) -->
     <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      
       <div class="form-field">
         <label>Name</label>
         <input type="text" placeholder="Your name" required>
       </div>
+
       <div class="form-field">
         <label>Email</label>
         <input type="email" placeholder="your@email.com" required>
       </div>
+
       <div class="form-field">
         <label>Message</label>
         <textarea placeholder="Tell me about your project or opportunity..." required></textarea>
       </div>
-      <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Send Message</button>
+
+      <button type="submit" class="btn btn-gold" style="align-self:flex-start;">
+        Send Message
+      </button>
+
     </form>
   </div>
 </section>
@@ -748,27 +935,33 @@
 </section>
 
 <script>
-  // Scroll reveal
+  // 🔥 Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
   }, { threshold: 0.08 });
+
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Star rating
+  // 🔥 Star rating
   document.querySelectorAll('.star').forEach(star => {
     star.addEventListener('click', () => {
       const val = +star.dataset.val;
       document.getElementById('ratingVal').value = val;
+
       document.querySelectorAll('.star').forEach(s => {
         s.classList.toggle('active', +s.dataset.val <= val);
       });
     });
+
     star.addEventListener('mouseover', () => {
       const val = +star.dataset.val;
       document.querySelectorAll('.star').forEach(s => {
         s.style.color = +s.dataset.val <= val ? 'var(--gold)' : '';
       });
     });
+
     star.addEventListener('mouseout', () => {
       const saved = +document.getElementById('ratingVal').value;
       document.querySelectorAll('.star').forEach(s => {
@@ -777,100 +970,113 @@
     });
   });
 
-  // Feedback form
- async function handleFeedback(e) {
-  e.preventDefault();
+  // 🔥 Backend URL (IMPORTANT)
+  const BASE_URL = "https://portfolio-backend-uzrs.onrender.com";
 
-  const form = e.target;
-  const btn = form.querySelector('button[type=submit]');
+  // 🔥 Feedback form
+  async function handleFeedback(e) {
+    e.preventDefault();
 
-  const data = {
-    name: form[0].value,
-    email: form[1].value,
-    rating: document.getElementById("ratingVal").value,
-    message: form[3].value
-  };
+    const form = e.target;
+    const btn = form.querySelector('button[type=submit]');
 
-  try {
-    const res = await fetch("http://localhost:5000/feedback", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    const data = {
+      name: form[0].value,
+      email: form[1].value,
+      rating: document.getElementById("ratingVal").value,
+      message: form[3].value
+    };
 
-    if (!res.ok) throw new Error();   // ✅ added check
-
-    btn.textContent = '✓ Thank you!';
-    btn.style.background = '#4ade80';
-    btn.style.color = '#1e1e1e';
-    btn.disabled = true;
-
-    setTimeout(() => {
-      btn.textContent = 'Submit Feedback';
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.disabled = false;
-      form.reset();
-
-      document.querySelectorAll('.star').forEach(s => {
-        s.classList.remove('active');
-        s.style.color = '';
+    try {
+      const res = await fetch(`${BASE_URL}/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
       });
 
-      document.getElementById('ratingVal').value = 0;
-    }, 3000);
+      if (!res.ok) throw new Error("Request failed");
 
-  } catch (err) {
-    console.error(err);   // ✅ added for debugging
-    alert("Error sending feedback ❌");
+      btn.textContent = '✓ Thank you!';
+      btn.style.background = '#4ade80';
+      btn.style.color = '#1e1e1e';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = 'Submit Feedback';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+        form.reset();
+
+        document.querySelectorAll('.star').forEach(s => {
+          s.classList.remove('active');
+          s.style.color = '';
+        });
+
+        document.getElementById('ratingVal').value = 0;
+      }, 3000);
+
+    } catch (err) {
+      console.error("Feedback error:", err);
+      alert("Error sending feedback ❌ (Try again after a few seconds)");
+    }
   }
-}
 
-  // Contact form
- async function handleSubmit(e) {
-  e.preventDefault();
+  // 🔥 Contact form
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-  const form = e.target;
-  const btn = form.querySelector('button[type=submit]');
-  const orig = btn.textContent;
+    const form = e.target;
+    const btn = form.querySelector('button[type=submit]');
+    const orig = btn.textContent;
 
-  const data = {
-    name: form[0].value,
-    email: form[1].value,
-    message: form[2].value
-  };
+    const data = {
+      name: form[0].value,
+      email: form[1].value,
+      message: form[2].value
+    };
 
-  try {
-    const res = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+    try {
+      const res = await fetch(`${BASE_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-    if (!res.ok) throw new Error();   // ✅ added check
+      if (!res.ok) throw new Error("Request failed");
 
-    btn.textContent = '✓ Message Sent';
-    btn.style.background = '#4ade80';
-    btn.style.color = '#0a0a0a';
-    btn.disabled = true;
+      btn.textContent = '✓ Message Sent';
+      btn.style.background = '#4ade80';
+      btn.style.color = '#0a0a0a';
+      btn.disabled = true;
 
-    setTimeout(() => {
-      btn.textContent = orig;
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.disabled = false;
-      form.reset();
-    }, 3000);
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+        form.reset();
+      }, 3000);
 
-  } catch (err) {
-    console.error(err);   // ✅ added for debugging
-    alert("Error sending message ❌");
+    } catch (err) {
+      console.error("Contact error:", err);
+      alert("Error sending message ❌ (Try again after a few seconds)");
+    }
   }
-}
+
+  // 🔥 Mobile menu toggle
+  function toggleMenu() {
+    const nav = document.getElementById("navLinks");
+    nav.classList.toggle("active");
+  }
+
+  function closeMenu() {
+    document.getElementById("navLinks").classList.remove("active");
+  }
 </script>
 
 <!-- FOOTER -->
